@@ -70,7 +70,9 @@ public class VentaService implements IVentaService {
 //modificar
     @Override
     public List<Producto> listProductoByVenta(Long id) {
-        Venta venta = this.searchVenta(id);       
+        Venta venta = this.searchVenta(id);
+        System.out.println(venta.getListaProductos());
+        System.out.println(venta.getListaProductos().toString());
         return venta.getListaProductos();
     }
 
