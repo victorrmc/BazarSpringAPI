@@ -41,13 +41,13 @@ public class VentaService implements IVentaService {
 
     @Override
     public List<VentaDTO> listVentas() {
-        List<VentaDTO> listVentDto = new ArrayList<>();
-        List<Venta> listvent = ventaRepo.findAll();
-        for (Venta venta : listvent) {
+        List<VentaDTO> listVentaDto = new ArrayList<>();
+        List<Venta> listventa = ventaRepo.findAll();
+        for (Venta venta : listventa) {
             VentaDTO ventaDto = new VentaDTO(venta);
-            listVentDto.add(ventaDto);
+            listVentaDto.add(ventaDto);
         }
-        return listVentDto;
+        return listVentaDto;
     }
 
     @Override

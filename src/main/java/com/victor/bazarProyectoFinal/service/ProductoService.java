@@ -4,8 +4,12 @@
  */
 package com.victor.bazarProyectoFinal.service;
 
+import com.victor.bazarProyectoFinal.dto.ProductoDTO;
+import com.victor.bazarProyectoFinal.dto.ProductoDTO;
+import com.victor.bazarProyectoFinal.model.Producto;
 import com.victor.bazarProyectoFinal.model.Producto;
 import com.victor.bazarProyectoFinal.repository.IProductoRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +32,21 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public List<Producto> listProductos() {
-        return productoRepo.findAll();
+    public List<ProductoDTO> listProductos() {
+        List<ProductoDTO> listProductoDto = new ArrayList<>();
+        List<Producto> listproducto = productoRepo.findAll();
+        for (Producto producto : listproducto) {
+            ProductoDTO productoDto = new ProductoDTO(producto);
+            listProductoDto.add(productoDto);
+        }
+        return listProductoDto;
     }
 
     @Override
-    public Producto searchProducto(Long id) {
-        return productoRepo.findById(id).orElse(null);
+    public ProductoDTO searchProducto(Long id) {
+        Producto producto = productoRepo.findById(id).orElse(null);
+        ProductoDTO productoDto = new ProductoDTO(producto);
+        return productoDto;
     }
 
     @Override
@@ -44,7 +56,7 @@ public class ProductoService implements IProductoService {
 
     @Override
     public void updateProducto(Long id, Producto newproducto) {
-        Producto producto = this.searchProducto(id);
+        Producto producto = productoRepo.findById(id).orElse(null);
 
         producto.setCodigo_producto(newproducto.getCodigo_producto());
         producto.setNombre(newproducto.getNombre());
@@ -56,11 +68,18 @@ public class ProductoService implements IProductoService {
     }
 
     @Override
-    public List<Producto> listLowStock() {
+    public List<ProductoDTO> listLowStock() {
         //Mostrar los productos con menos de 5 de stock
-        return this.listProductos().stream()
+         List<ProductoDTO> listProductoDto = new ArrayList<>();
+        List<Producto> listproducto = productoRepo.findAll().stream()
                 .filter(producto -> producto.getCantidad_disponible() < 5)
                 .collect(Collectors.toList());
+        
+        for (Producto producto : listproducto) {
+            ProductoDTO productoDto = new ProductoDTO(producto);
+            listProductoDto.add(productoDto);
+        }
+        return listProductoDto;
     }
 
 }

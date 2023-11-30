@@ -5,6 +5,7 @@
 package com.victor.bazarProyectoFinal.controller;
 
 
+import com.victor.bazarProyectoFinal.dto.ProductoDTO;
 import com.victor.bazarProyectoFinal.model.Producto;
 import com.victor.bazarProyectoFinal.service.IProductoService;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ProductoController {
     
     @GetMapping("/productos")
     @ResponseBody
-    public List<Producto> listProductos(){
+    public List<ProductoDTO> listProductos(){
         return productoService.listProductos();
     }
     
@@ -56,7 +57,7 @@ public class ProductoController {
     
     //consultas
     @GetMapping("/productos/falta_stock")
-    public List<Producto> listLowStock(){
+    public List<ProductoDTO> listLowStock(){
         return productoService.listLowStock();
     }
     

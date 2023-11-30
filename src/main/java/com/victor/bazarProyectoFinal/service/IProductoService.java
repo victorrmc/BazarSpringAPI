@@ -4,6 +4,7 @@
  */
 package com.victor.bazarProyectoFinal.service;
 
+import com.victor.bazarProyectoFinal.dto.ProductoDTO;
 import com.victor.bazarProyectoFinal.model.Producto;
 import java.util.List;
 
@@ -16,13 +17,13 @@ public interface IProductoService {
     //CRUD
     public void createProducto(Producto produ);
     public void createListProducto(List<Producto> listProducto);
-    public List<Producto> listProductos();
-    public Producto searchProducto(Long id);
+    public List<ProductoDTO> listProductos();
+    public ProductoDTO searchProducto(Long id);
     public void deleteProducto(Long id);
     public void updateProducto(Long id, Producto produ);
     
     //consultas
-    public List<Producto> listLowStock();
+    public List<ProductoDTO> listLowStock();
     
     
 }
