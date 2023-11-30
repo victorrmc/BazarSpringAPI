@@ -38,7 +38,6 @@ public class Venta {
         inverseJoinColumns=
             @JoinColumn(name="producto_id", referencedColumnName="codigo_producto",  nullable = false)
     )
-    @JsonIgnore
     private List<Producto> listaProductos;
     
     @ManyToOne()

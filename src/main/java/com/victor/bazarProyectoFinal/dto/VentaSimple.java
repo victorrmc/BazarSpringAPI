@@ -13,7 +13,7 @@ import lombok.Setter;
  * @author victo
  */
 @Getter @Setter
-public class DtoVenta{
+public class VentaSimple{
     
     private double dineroTotal;
     private long ventasTotal;

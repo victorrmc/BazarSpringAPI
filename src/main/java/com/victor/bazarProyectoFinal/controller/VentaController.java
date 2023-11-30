@@ -4,8 +4,10 @@
  */
 package com.victor.bazarProyectoFinal.controller;
 
-import com.victor.bazarProyectoFinal.dto.DtoVenta;
+import com.victor.bazarProyectoFinal.dto.ProductoDTO;
+import com.victor.bazarProyectoFinal.dto.VentaSimple;
 import com.victor.bazarProyectoFinal.dto.VentaCliente;
+import com.victor.bazarProyectoFinal.dto.VentaDTO;
 import com.victor.bazarProyectoFinal.model.Producto;
 import com.victor.bazarProyectoFinal.model.Venta;
 import com.victor.bazarProyectoFinal.service.IVentaService;
@@ -29,7 +31,7 @@ public class VentaController {
     
     @GetMapping("/ventas")
     @ResponseBody
-    public List<Venta> listVentas(){
+    public List<VentaDTO> listVentas(){
         return ventaService.listVentas();
     }
     
@@ -58,12 +60,12 @@ public class VentaController {
     }
     //consultas
     @GetMapping("/ventas/productos/{codigo_venta}")
-    public List<Producto> listProductoByVenta(@PathVariable Long codigo_venta){
+    public List<ProductoDTO> listProductoByVenta(@PathVariable Long codigo_venta){
         return ventaService.listProductoByVenta(codigo_venta);
     }
     
     @GetMapping("/ventas/{fecha_venta}")
-    public DtoVenta ventaByDay(@PathVariable LocalDate fecha_venta){
+    public VentaSimple ventaByDay(@PathVariable LocalDate fecha_venta){
         return ventaService.ventaByDay(fecha_venta);
     }
     

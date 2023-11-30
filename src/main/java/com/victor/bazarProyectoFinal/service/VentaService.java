@@ -4,13 +4,16 @@
  */
 package com.victor.bazarProyectoFinal.service;
 
-import com.victor.bazarProyectoFinal.dto.DtoVenta;
+import com.victor.bazarProyectoFinal.dto.ProductoDTO;
+import com.victor.bazarProyectoFinal.dto.VentaSimple;
 import com.victor.bazarProyectoFinal.dto.VentaCliente;
+import com.victor.bazarProyectoFinal.dto.VentaDTO;
 import com.victor.bazarProyectoFinal.model.Producto;
 import com.victor.bazarProyectoFinal.model.Venta;
 import com.victor.bazarProyectoFinal.model.Venta;
 import com.victor.bazarProyectoFinal.repository.IVentaRepository;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,13 +40,21 @@ public class VentaService implements IVentaService {
     }
 
     @Override
-    public List<Venta> listVentas() {
-        return ventaRepo.findAll();
+    public List<VentaDTO> listVentas() {
+        List<VentaDTO> listVentDto = new ArrayList<>();
+        List<Venta> listvent = ventaRepo.findAll();
+        for (Venta venta : listvent) {
+            VentaDTO ventaDto = new VentaDTO(venta);
+            listVentDto.add(ventaDto);
+        }
+        return listVentDto;
     }
 
     @Override
-    public Venta searchVenta(Long id) {
-        return ventaRepo.findById(id).orElse(null);
+    public VentaDTO searchVenta(Long id) {
+        Venta venta = ventaRepo.findById(id).orElse(null);
+        VentaDTO ventaDto = new VentaDTO(venta);
+        return ventaDto;
     }
 
     @Override
@@ -57,7 +68,7 @@ public class VentaService implements IVentaService {
 //implementar la funcionalidad.
     @Override
     public void updateVenta(Long id, Venta newventa) {
-        Venta venta = this.searchVenta(id);
+        Venta venta = ventaRepo.findById(id).orElse(null);
         venta.setCodigo_venta(newventa.getCodigo_venta());
         venta.setFecha_venta(newventa.getFecha_venta());
         venta.setListaProductos(newventa.getListaProductos());
@@ -69,17 +80,16 @@ public class VentaService implements IVentaService {
 
 //modificar
     @Override
-    public List<Producto> listProductoByVenta(Long id) {
-        Venta venta = this.searchVenta(id);
-        System.out.println(venta.getListaProductos());
-        System.out.println(venta.getListaProductos().toString());
-        return venta.getListaProductos();
+    public List<ProductoDTO> listProductoByVenta(Long id) {
+        Venta venta = ventaRepo.findById(id).orElse(null);
+        VentaDTO ventaDto = new VentaDTO(venta);
+        return ventaDto.getListaProductos();
     }
 
     @Override
-    public DtoVenta ventaByDay(LocalDate fecha_venta) {
+    public VentaSimple ventaByDay(LocalDate fecha_venta) {
         //Muestra las ventas por el dia
-        List<Venta> listVenta = this.listVentas();
+        List<Venta> listVenta = ventaRepo.findAll();
         
         double sumatoriaMonto = listVenta.stream()
         .filter(venta -> venta.getFecha_venta().equals(fecha_venta))
@@ -90,7 +100,7 @@ public class VentaService implements IVentaService {
         .filter(venta -> venta.getFecha_venta().equals(fecha_venta))
         .count();
         
-        DtoVenta dtoVenta = new DtoVenta();
+        VentaSimple dtoVenta = new VentaSimple();
         dtoVenta.setDineroTotal(sumatoriaMonto);
         dtoVenta.setVentasTotal(cantidadVentas);
 
@@ -102,11 +112,12 @@ public class VentaService implements IVentaService {
         //Obtener el codigo_venta, el total, la cantidad de productos, el nombre del cliente y el
         //apellido del cliente de la venta con el monto más alto de todas.
         VentaCliente ventaCliente = new VentaCliente();
-        List<Venta> listVenta = this.listVentas();
+        List<Venta> listVenta = ventaRepo.findAll();
         Venta ventaMasAlta = listVenta.stream()
                 .sorted((venta1, venta2)-> 
                         venta2.getTotal().compareTo(venta1.getTotal()
                         )).findFirst().orElse(null);
+        
         if (ventaMasAlta != null) {
         ventaCliente.setCodigo_venta(ventaMasAlta.getCodigo_venta());
         ventaCliente.setTotal(ventaMasAlta.getTotal());
@@ -116,7 +127,5 @@ public class VentaService implements IVentaService {
     }
         return ventaCliente;
     }
-
-    
 
 }
