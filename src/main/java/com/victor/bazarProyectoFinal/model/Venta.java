@@ -30,7 +30,7 @@ public class Venta {
     private LocalDate fecha_venta;
     private Double total;
     
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name="venta_producto",
         joinColumns=
