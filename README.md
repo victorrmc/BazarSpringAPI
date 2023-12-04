@@ -23,6 +23,5 @@ Para utilizar los endpoints, puede enviar solicitudes HTTP a los siguientes endp
 
 Los endpoints para `ProductoController` y `VentaController` funcionan de manera similar.
 
-## Postman Collection
-
-Hemos añadido una colección de Postman al proyecto para facilitar la prueba de los endpoints. Puedes encontrar la colección en el directorio `postman` en la raíz del proyecto.
+> [!IMPORTANT]  
+> Hemos añadido una colección de Postman al proyecto para facilitar la prueba de los endpoints. Puedes encontrar la colección en el directorio `postman` en la raíz del proyecto.
