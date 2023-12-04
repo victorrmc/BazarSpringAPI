@@ -29,7 +29,21 @@ public class Producto {
     private Double cantidad_disponible;
     
     //@JsonIgnoreProperties("producto")
-    @ManyToMany(mappedBy = "listaProductos", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "listaProductos", fetch = FetchType.EAGER)
     private List<Venta> listVenta;
+
+    public Producto() {
+    }
+
+    public Producto(Long codigo_producto, String nombre, String marca, Double costo, Double cantidad_disponible, List<Venta> listVenta) {
+        this.codigo_producto = codigo_producto;
+        this.nombre = nombre;
+        this.marca = marca;
+        this.costo = costo;
+        this.cantidad_disponible = cantidad_disponible;
+        this.listVenta = listVenta;
+    }
+    
+    
     
 }

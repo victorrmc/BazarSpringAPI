@@ -30,7 +30,7 @@ public class Venta {
     private LocalDate fecha_venta;
     private Double total;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name="venta_producto",
         joinColumns=
@@ -44,5 +44,20 @@ public class Venta {
     @JoinColumn(name = "producto_idcliente")
     @JsonBackReference
     private Cliente unCliente;
+
+    public Venta() {
+    }
+    
+    
+
+    public Venta(Long codigo_venta, LocalDate fecha_venta, Double total, List<Producto> listaProductos, Cliente unCliente) {
+        this.codigo_venta = codigo_venta;
+        this.fecha_venta = fecha_venta;
+        this.total = total;
+        this.listaProductos = listaProductos;
+        this.unCliente = unCliente;
+    }
+    
+    
     
 }

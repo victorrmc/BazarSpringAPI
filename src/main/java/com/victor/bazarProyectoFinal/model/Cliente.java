@@ -29,4 +29,17 @@ public class Cliente {
     @JsonManagedReference
     @JsonIgnore
     private List<Venta> listClienteVenta;
+
+    public Cliente() {
+    }
+
+    public Cliente(Long id_cliente, String nombre, String apellido, String dni, List<Venta> listClienteVenta) {
+        this.id_cliente = id_cliente;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.listClienteVenta = listClienteVenta;
+    }
+    
+    
 }
