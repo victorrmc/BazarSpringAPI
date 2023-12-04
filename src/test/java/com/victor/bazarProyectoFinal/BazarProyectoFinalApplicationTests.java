@@ -30,26 +30,9 @@ class BazarProyectoFinalApplicationTests {
     @Autowired
     private IVentaService VentaService;
 
-//    @BeforeEach
-//    public void setUp(){
-//        Cliente cli = new Cliente(2L, "Marrero", "32222W", "Victor", null);
-//        ClienteService.createCliente(cli);
-//
-//        Producto pro = new Producto(2L, "carhartt", "chaqueta", 10.00, 119.99, null);
-//        productoService.createProducto(pro);
-//    
-//        Venta ven = new Venta(2L, LocalDate.now(), 200.00, null, null);
-//        VentaService.createVenta(ven);
-//    }
-    @BeforeAll
-    public static void init(){
-        System.out.println("BeforeAll init() method called");
-        
-    }
 
     @BeforeEach
     public void initEach(){
-        System.out.println("BeforeEach initEach() method called");
         Producto pro = new Producto(1L, "carhartt", "chaqueta", 10.00, 119.99, null);
         productoService.createProducto(pro);
         
